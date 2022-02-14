@@ -31,8 +31,6 @@ How to Use/Setup ?
      6. Click the Install Button
      7. Enjoy :)
 
-trigger scan
-
 
 
 **Method 2.Very Easiest Method : VirtualBox VM**
