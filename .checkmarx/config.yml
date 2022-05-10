@@ -10,7 +10,7 @@ checkmarx:
       # configure the SAST related configurations this specific project
       sast:
         # configure the SAST preset name used for this specific project
-        presetName: 'Checkmarx Default'
+        presetName: 'PCI'
          # configure if this specific project will be run incrementally or will it run a full scan 
         incremental: 'false'
         languageMode: 'multi'
@@ -19,5 +19,5 @@ checkmarx:
       sca:
         filter: '!*.cpp'
       kics:
-        filter: '*.java'
+        filter: '!*.java'
         platforms: 'Ansible,CloudFormation,Dockerfile'
