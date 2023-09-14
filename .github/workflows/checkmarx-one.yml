@@ -21,18 +21,11 @@ on:
     branches: [ "master" ]
   push:
     branches: [ "master" ]
-permissions:
-  contents: read
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
-    permissions:
-      contents: read # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif
-
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -49,7 +42,7 @@ jobs:
           cx_client_id: ${{ secrets.AST_CLIENT_ID }} # This should be created within your Checkmarx One account : https://checkmarx.com/resource/documents/en/34965-118315-authentication-for-checkmarx-one-cli.html#UUID-a4e31a96-1f36-6293-e95a-97b4b9189060_UUID-4123a2ff-32d0-2287-8dd2-3c36947f675e
           cx_client_secret: ${{ secrets.AST_CLIENT_SECRET }} # This should be created within your Checkmarx One account : https://checkmarx.com/resource/documents/en/34965-118315-authentication-for-checkmarx-one-cli.html#UUID-a4e31a96-1f36-6293-e95a-97b4b9189060_UUID-4123a2ff-32d0-2287-8dd2-3c36947f675e
           cx_tenant: ${{ secrets.TENANT }} # This should be replaced by your tenant for Checkmarx One
-          additional_params:  --report-format sarif,summaryHTML --output-path . --tags ${{ github.event.pull_request.head.sha }},${{ github.sha }}
+          additional_params:  --scan-types sast --report-format sarif,summaryHTML --output-path . --tags ${{ github.event.pull_request.head.sha }},${{ github.sha }}
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
