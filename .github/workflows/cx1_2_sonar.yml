@@ -1,5 +1,6 @@
-name: Security Scan
+name: CxOne Scan -> Sonar
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
