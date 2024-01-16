@@ -18,7 +18,7 @@ jobs:
           cx_tenant: ${{ secrets.TENANT }}
           cx_client_id: ${{ secrets.AST_CLIENT_ID }}
           cx_client_secret: ${{ secrets.AST_CLIENT_SECRET }}
-          additional_params: --report-format sonar --output-path . --tags ${{ github.event.pull_request.head.sha }},${{ github.sha }}
+          additional_params: --report-format sonar --output-path . --scan-types sast --tags ${{ github.event.pull_request.head.sha }},${{ github.sha }}
       - name: Sonar CLI Action 
         uses: sonarsource/sonarqube-scan-action@master
         env:
@@ -27,4 +27,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: >
-            -Dsonar.externalIssuesReportPaths=cx_result_sonar.json
+            -Dsonar.externalIssuesReportPaths=cx_result_sonar.json -Dsonar.projectKey=jvlstuff_JavaVulnerableLab_for_AST_GH_actions -Dsonar.organization=jvlstuff
