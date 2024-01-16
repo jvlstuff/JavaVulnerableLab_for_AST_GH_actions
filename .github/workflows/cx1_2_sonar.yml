@@ -1,0 +1,29 @@
+name: Security Scan
+on:
+  push:
+    branches:
+      - main
+jobs:
+  scan:
+    name: Run CxAST cli
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Checkmarx AST CLI Action
+        uses: checkmarx/ast-github-action@main
+        with:
+          base_uri: ${{ secrets.BASE_URI }}
+          cx_tenant: ${{ secrets.TENANT }}
+          cx_client_id: ${{ secrets.AST_CLIENT_ID }}
+          cx_client_secret: ${{ secrets.AST_CLIENT_SECRET }}
+          additional_params: --report-format sonar --output-path . --tags ${{ github.event.pull_request.head.sha }},${{ github.sha }}
+      - name: Sonar CLI Action 
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: >
+            -Dsonar.externalIssuesReportPaths=cx_result_sonar.json
