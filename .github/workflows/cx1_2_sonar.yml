@@ -19,6 +19,8 @@ jobs:
           cx_client_id: ${{ secrets.AST_CLIENT_ID }}
           cx_client_secret: ${{ secrets.AST_CLIENT_SECRET }}
           additional_params: --report-format sonar --output-path . --scan-types sast --tags ${{ github.event.pull_request.head.sha }},${{ github.sha }}
+      - name: remove src directory
+        run: rm -r src
       - name: Sonar CLI Action 
         uses: sonarsource/sonarqube-scan-action@master
         env:
