@@ -51,7 +51,7 @@ jobs:
           cx_tenant: ${{ secrets.TENANT }} # This should be replaced by your tenant for Checkmarx One
           additional_params:  --report-format sarif --output-path . --tags ${{ github.event.pull_request.head.sha }},${{ github.sha }}
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           # Path to SARIF file relative to the root of the repository
           sarif_file: cx_result.sarif
